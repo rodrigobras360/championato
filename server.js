@@ -1,62 +1,73 @@
-const fastify = require('fastify')({ logger: true });
+const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
+const sqlite3 = require('sqlite3').verbose();
 const dotenv = require('dotenv');
-const { addChoice, getChoices, clearChoices } = require('./src/sqlite');
 
 dotenv.config();
 
-fastify.register(require('@fastify/formbody'));
-fastify.register(require('@fastify/static'), {
-  root: path.join(__dirname, 'public'),
-  prefix: '/public/',
-});
-fastify.register(require('@fastify/view'), {
-  engine: {
-    handlebars: require('handlebars')
-  },
-  root: path.join(__dirname, 'src/pages'),
-  viewExt: 'hbs'
+const app = express();
+const db = new sqlite3.Database('./.data/choices.db');
+
+db.serialize(() => {
+  db.run('CREATE TABLE IF NOT EXISTS choices (id INTEGER PRIMARY KEY AUTOINCREMENT, choice TEXT)');
 });
 
-// Serve pages
-fastify.get('/', async (request, reply) => {
-  const params = { results: request.query.results };
-  return reply.view('index.hbs', params);
+app.use(bodyParser.json());
+app.use(express.static('public'));
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'src/pages'));
+
+app.get('/', (req, res) => {
+  res.render('index', { results: req.query.results });
 });
 
-fastify.get('/admin', async (request, reply) => {
-  return reply.view('admin.hbs');
+app.get('/admin', (req, res) => {
+  res.render('admin');
 });
 
-// API endpoints
-fastify.get('/api/data', async (request, reply) => {
-  getChoices((err, rows) => {
+app.get('/api/data', (req, res) => {
+  db.all('SELECT * FROM choices', (err, rows) => {
     if (err) {
-      return reply.status(500).send({ error: err.message });
+      return res.status(500).send({ error: err.message });
     }
-    reply.send(rows);
+    res.send(rows);
   });
 });
 
-fastify.post('/api/choices', async (request, reply) => {
-  const { choice } = request.body;
-  addChoice(choice, (err, id) => {
+app.post('/api/choices', (req, res) => {
+  const { choice } = req.body;
+  db.run('INSERT INTO choices (choice) VALUES (?)', choice, function (err) {
     if (err) {
-      return reply.status(500).send({ error: err.message });
+      return res.status(500).send({ error: err.message });
     }
-    reply.status(201).send({ id, choice });
+    res.status(201).send({ id: this.lastID, choice });
   });
 });
 
-fastify.delete('/api/choices', async (request, reply) => {
-  clearChoices((err) => {
+app.delete('/api/choices', (req, res) => {
+  db.run('DELETE FROM choices', (err) => {
     if (err) {
-      return reply.status(500).send({ error: err.message });
+      return res.status(500).send({ error: err.message });
     }
-    reply.status(204).end();
+    res.status(204).end();
   });
 });
 
-fastify.post('/reset', async (request, reply) => {
-  if (request.body.adminKey === process.env.ADMIN_KEY) {
-    clearChoices
+app.post('/reset', (req, res) => {
+  if (req.body.adminKey === process.env.ADMIN_KEY) {
+    db.run('DELETE FROM choices', (err) => {
+      if (err) {
+        return res.status(500).send('Error clearing choices');
+      }
+      res.status(200).send('Histórico limpo com sucesso.');
+    });
+  } else {
+    res.status(401).send('Chave de admin inválida.');
+  }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
