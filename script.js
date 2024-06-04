@@ -19,12 +19,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const password = passwordInput.value;
         if (password === 'champai') {
             adminButton.style.display = 'inline';
+            scoreButton.style.display = 'inline';
+            historyButton.style.display = 'inline';
         } else if (password === 'souchampi') {
             scoreButton.style.display = 'inline';
             historyButton.style.display = 'inline';
         }
-        loginForm.style.display = 'none';
-        navigation.style.display = 'block';
+        loginForm.parentElement.style.display = 'none';
+        navigation.style.display = 'flex';
     });
 
     scoreButton.addEventListener('click', function () {
@@ -60,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const value = document.getElementById('bonus-value').value;
         const bonusList = document.createElement('li');
         bonusList.textContent = `${description}: ${value} pontos`;
-        document.getElementById('bonus-list').appendChild(bonusList);
+        document.getElementById('mamanços-list').appendChild(bonusList);
         bonusForm.reset();
     });
 
