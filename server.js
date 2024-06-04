@@ -59,21 +59,4 @@ fastify.delete('/api/choices', async (request, reply) => {
 
 fastify.post('/reset', async (request, reply) => {
   if (request.body.adminKey === process.env.ADMIN_KEY) {
-    clearChoices((err) => {
-      if (err) {
-        return reply.status(500).send('Error clearing choices');
-      }
-      reply.status(200).send('Histórico limpo com sucesso.');
-    });
-  } else {
-    reply.status(401).send('Chave de admin inválida.');
-  }
-});
-
-fastify.listen({ port: process.env.PORT || 3000, host: '0.0.0.0' }, (err, address) => {
-  if (err) {
-    fastify.log.error(err);
-    process.exit(1);
-  }
-  fastify.log.info(`Server listening at ${address}`);
-});
+    clearChoices
