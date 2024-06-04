@@ -37,64 +37,62 @@
                     <label for="mamador1-name">Nome do 1º Mamador: </label>
                     <input type="text" id="mamador1-name" required>
                     <label for="mamador1-gender">Género do 1º Mamador: </label>
-                    <select id="mamador1-gender" onchange="updateHierarchyOptions('mamador1')">
-                        <option value="homem">Homem à Antiga</option>
-                        <option value="mulher">Mulher à Antiga</option>
+                    <select id="mamador1-gender" required>
+                        <option value="homem">Homem à antiga</option>
+                        <option value="mulher">Mulher à antiga</option>
                     </select>
-                    <label for="mamador1-hierarchy">Hierarquia do 1º Mamador: </label>
-                    <select id="mamador1-hierarchy">
-                        <!-- Options will be dynamically updated -->
+                    <label for="mamador1-rank">Hierarquia do 1º Mamador: </label>
+                    <select id="mamador1-rank" required>
+                        <option value="caloiro">Caloiro</option>
+                        <option value="pastrano">Excelentíssimo Pastrano</option>
+                        <option value="doutor">Excelentíssimo Doutor</option>
+                        <option value="veterano">Excelentíssimo Veterano</option>
+                        <option value="dux">Excelentíssimo Dux</option>
                     </select>
-                    <br>
-                    <label for="is-champi-1">É Champi?</label>
-                    <input type="checkbox" id="is-champi-1">
-                    <br>
+                    <label for="mamador1-champi">É Champi?</label>
+                    <input type="checkbox" id="mamador1-champi">
                     <button type="submit">Adicionar Mamador 1</button>
                 </div>
             </form>
-            <form id="mamador2-form" style="display:none;">
+            <form id="mamador2-form" style="display: none;">
                 <div id="mamador2-section">
                     <label for="mamador2-name">Nome do 2º Mamador: </label>
                     <input type="text" id="mamador2-name" required>
                     <label for="mamador2-gender">Género do 2º Mamador: </label>
-                    <select id="mamador2-gender" onchange="updateHierarchyOptions('mamador2')">
-                        <option value="homem">Homem à Antiga</option>
-                        <option value="mulher">Mulher à Antiga</option>
+                    <select id="mamador2-gender" required>
+                        <option value="homem">Homem à antiga</option>
+                        <option value="mulher">Mulher à antiga</option>
                     </select>
-                    <label for="mamador2-hierarchy">Hierarquia do 2º Mamador: </label>
-                    <select id="mamador2-hierarchy">
-                        <!-- Options will be dynamically updated -->
+                    <label for="mamador2-rank">Hierarquia do 2º Mamador: </label>
+                    <select id="mamador2-rank" required>
+                        <option value="caloiro">Caloiro</option>
+                        <option value="pastrano">Excelentíssimo Pastrano</option>
+                        <option value="doutor">Excelentíssimo Doutor</option>
+                        <option value="veterano">Excelentíssimo Veterano</option>
+                        <option value="dux">Excelentíssimo Dux</option>
                     </select>
-                    <br>
-                    <label for="is-champi-2">É Champi?</label>
-                    <input type="checkbox" id="is-champi-2">
-                    <br>
+                    <label for="mamador2-champi">É Champi?</label>
+                    <input type="checkbox" id="mamador2-champi">
                     <button type="submit">Adicionar Mamador 2</button>
                 </div>
             </form>
-            <form id="bonus-form-selection" style="display:none;">
-                <h3>Obrigado! Só por curiosidade, aconteceu algum destes bónus?</h3>
-                <label for="bonus-select">Bónus: </label>
-                <select id="bonus-select" multiple></select>
-                <br>
-                <button type="submit">Adicionar Bónus</button>
-            </form>
+            <div id="bonus-section" style="display: none;">
+                <h3>Bonuses</h3>
+                <form id="bonus-form">
+                    <label for="bonus-description">Descrição do Bónus: </label>
+                    <input type="text" id="bonus-description">
+                    <label for="bonus-value">Valor do Bónus: </label>
+                    <input type="number" id="bonus-value">
+                    <button type="submit">Adicionar Bónus</button>
+                </form>
+            </div>
         </div>
-        <div id="manage-events">
-            <h3>Gerenciar Mamanços</h3>
-            <ul id="manage-mamanços-list"></ul>
-            <button id="clear-all" onclick="clearAllData()">Apagar Todo o Histórico</button>
-        </div>
-        <div id="reset-section">
-            <h3>Resetar Histórico</h3>
-            <form id="reset-form">
-                <label for="admin-key">Chave de Admin: </label>
-                <input type="password" id="admin-key" required>
-                <button type="submit">Limpar Histórico</button>
-            </form>
+        <div id="history-section" class="section" style="display: none;">
+            <h2>Histórico de Mamanços</h2>
+            <ul id="mamanços-list"></ul>
+            <button id="clear-mamancos" onclick="clearMamancos()">Apagar Todos os Mamanços</button>
         </div>
     </div>
-
     <script src="/public/script.js"></script>
 </body>
 </html>
