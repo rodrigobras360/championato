@@ -1,71 +1,39 @@
-document.getElementById('login-form').addEventListener('submit', function (event) {
+document.getElementById('login-form').addEventListener('submit', function(event) {
     event.preventDefault();
     const password = document.getElementById('password').value;
     if (password === 'champai') {
-        document.getElementById('score-button').style.display = 'block';
-        document.getElementById('history-button').style.display = 'block';
         document.getElementById('admin-button').style.display = 'block';
     } else if (password === 'souchampi') {
         document.getElementById('score-button').style.display = 'block';
         document.getElementById('history-button').style.display = 'block';
-    } else {
-        alert('Senha incorreta');
     }
+    document.getElementById('login-section').style.display = 'none';
+});
+
+document.getElementById('mamador1-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    document.getElementById('mamador1-section').style.display = 'none';
+    document.getElementById('mamador2-form').style.display = 'block';
+});
+
+document.getElementById('mamador2-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    document.getElementById('mamador2-form').style.display = 'none';
+    document.getElementById('bonus-section').style.display = 'block';
 });
 
 function showSection(sectionId) {
     const sections = document.querySelectorAll('.section');
     sections.forEach(section => {
-        section.style.display = section.id === sectionId ? 'block' : 'none';
+        section.style.display = 'none';
     });
+    document.getElementById(sectionId).style.display = 'block';
 }
-
-document.getElementById('reset-form').addEventListener('submit', function (event) {
-    event.preventDefault();
-    const adminKey = document.getElementById('admin-key').value;
-    fetch('/reset', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ adminKey }),
-    })
-    .then(response => {
-        if (response.status === 200) {
-            alert('Histórico limpo com sucesso.');
-        } else {
-            alert('Chave de admin inválida.');
-        }
-    })
-    .catch(error => {
-        console.error('Erro:', error);
-    });
-});
 
 function clearBonuses() {
-    // Implementar a lógica para limpar todos os bônus
+    // Código para limpar os bônus
 }
 
-function clearAllData() {
-    // Implementar a lógica para limpar todos os dados
-}
-
-function updateHierarchyOptions(mamador) {
-    const gender = document.getElementById(`${mamador}-gender`).value;
-    const hierarchySelect = document.getElementById(`${mamador}-hierarchy`);
-    let options = [];
-
-    if (gender === 'homem') {
-        options = ['Futrica', 'Caloiro', 'Excelentíssimo Pastrano', 'Excelentíssimo Doutor', 'Excelentíssimo Veterano', 'Excelentíssimo Dux'];
-    } else if (gender === 'mulher') {
-        options = ['Futrica', 'Caloira', 'Excelentíssima Pastrana', 'Excelentíssima Doutora', 'Excelentíssima Veterana', 'Excelentíssima Dux'];
-    }
-
-    hierarchySelect.innerHTML = '';
-    options.forEach(option => {
-        const opt = document.createElement('option');
-        opt.value = option;
-        opt.textContent = option;
-        hierarchySelect.appendChild(opt);
-    });
+function clearMamancos() {
+    // Código para limpar os mamanços
 }
