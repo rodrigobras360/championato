@@ -1,100 +1,112 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Championato</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <img src="brasao.png" alt="Brasão">
-        <h1>Bem-vindo, este é o Championato</h1>
+        <h1>Bem-vindo ao Championato</h1>
     </header>
-    <main class="container">
-        <section id="login-section">
-            <h2>Login</h2>
-            <form id="login-form">
-                <label for="password">Palavra-passe:</label>
-                <input type="password" id="password" name="password" required>
-                <button type="submit">Entrar</button>
-            </form>
-        </section>
-        <nav id="navigation" class="container-fluid" style="display: none;">
-            <ul>
-                <li><strong>Navegação</strong></li>
-            </ul>
-            <ul>
-                <li><a href="#" id="score-button">Tabela de Pontuação</a></li>
-                <li><a href="#" id="history-button">Histórico de Mamanços</a></li>
-                <li><a href="#" id="admin-button" style="display: none;">Gallo-Praxis</a></li>
-            </ul>
-        </nav>
-        <section id="score-section" style="display: none;">
-            <h2>Tabela de Pontuação</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Hierarquia</th>
-                        <th>Pontos Normais</th>
-                        <th>Bónus</th>
-                        <th>Pontos Totais</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Exemplo de dados -->
-                    <tr>
-                        <td>John Doe</td>
-                        <td>Champi</td>
-                        <td>100</td>
-                        <td>20</td>
-                        <td>120</td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-        <section id="history-section" style="display: none;">
-            <h2>Histórico de Mamanços</h2>
-            <ul id="mamanços-list">
-                <!-- Exemplo de histórico -->
-                <li>Mamanço 1</li>
-            </ul>
-        </section>
-        <section id="admin-section" style="display: none;">
-            <h2>Gallo-Praxis</h2>
+    <nav>
+        <button onclick="showSection('score-section')">Tabela de Pontuação</button>
+        <button onclick="showSection('history-section')">História dos Mamanços</button>
+        <button onclick="showAdminSection()">Administração</button>
+    </nav>
+    
+    <div id="score-section" class="section" style="display: none;">
+        <h2>Tabela de Pontuação</h2>
+        <table id="score-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Hierarquia</th>
+                    <th>Pontos Normais</th>
+                    <th>Bónus</th>
+                    <th>Pontos Totais</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Pontuações serão adicionadas aqui dinamicamente -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="history-section" class="section" style="display: none;">
+        <h2>História dos Mamanços</h2>
+        <ul id="mamanços-list"></ul>
+    </div>
+    
+    <div id="admin-login-section" class="section" style="display: none;">
+        <h2>Administração</h2>
+        <form id="admin-login-form">
+            <label for="admin-password">Palavra-passe: </label>
+            <input type="password" id="admin-password" required>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+    <div id="admin-section" class="section" style="display: none;">
+        <h2>Área de Administração</h2>
+        <div id="add-bonus">
             <h3>Adicionar Bónus</h3>
             <form id="bonus-form">
-                <label for="bonus-description">Descrição:</label>
-                <input type="text" id="bonus-description" name="bonus-description" required>
-                <label for="bonus-value">Valor:</label>
-                <input type="number" id="bonus-value" name="bonus-value" required>
+                <label for="bonus-description">Descrição do Bónus: </label>
+                <input type="text" id="bonus-description" required>
+                <label for="bonus-value">Valor do Bónus: </label>
+                <input type="number" id="bonus-value" required>
                 <button type="submit">Adicionar Bónus</button>
             </form>
+            <ul id="bonus-list"></ul>
+        </div>
+        <div id="add-event">
             <h3>Adicionar Mamanço</h3>
-            <form id="mamador-form-1">
-                <label for="mamador-name">Nome:</label>
-                <input type="text" id="mamador-name" name="mamador-name" required>
-                <label for="mamador-gender">Género:</label>
-                <select id="mamador-gender" name="mamador-gender" required>
-                    <option value="masculino">Masculino</option>
-                    <option value="feminino">Feminino</option>
-                </select>
-                <button type="submit">Próximo</button>
+            <form id="mamador1-form">
+                <div id="mamador1-section">
+                    <label for="mamador1-name">Nome do Mamador 1: </label>
+                    <input type="text" id="mamador1-name" required>
+                    <label for="mamador1-hierarchy">Hierarquia do Mamador 1: </label>
+                    <select id="mamador1-hierarchy">
+                        <option value="Caloiro">Caloiro/Caloiro</option>
+                        <option value="Pastrana">Excelentíssimo/Excelentíssima Pastrana</option>
+                        <option value="Doutor">Excelentíssimo/Excelentíssima Doutor(a)</option>
+                        <option value="Veterano">Excelentíssimo/Excelentíssima Veterano(a)</option>
+                        <option value="Dux">Excelentíssimo/Excelentíssima Dux</option>
+                    </select>
+                    <br>
+                    <label for="is-champi">É Champi?</label>
+                    <input type="checkbox" id="is-champi">
+                    <br>
+                    <button type="submit">Adicionar Mamador 1</button>
+                </div>
             </form>
-            <form id="mamador-form-2" style="display: none;">
-                <label for="mamador-hierarchy">Hierarquia:</label>
-                <input type="text" id="mamador-hierarchy" name="mamador-hierarchy" required>
-                <label for="mamador-champi">Champi:</label>
-                <input type="checkbox" id="mamador-champi" name="mamador-champi">
-                <button type="submit">Adicionar Mamanço</button>
+            <form id="mamador2-form" style="display:none;">
+                <div id="mamador2-section">
+                    <label for="mamador2-name">Nome do Mamador 2: </label>
+                    <input type="text" id="mamador2-name" required>
+                    <label for="mamador2-hierarchy">Hierarquia do Mamador 2: </label>
+                    <select id="mamador2-hierarchy">
+                        <option value="Caloiro">Caloiro/Caloiro</option>
+                        <option value="Pastrana">Excelentíssimo/Excelentíssima Pastrana</option>
+                        <option value="Doutor">Excelentíssimo/Excelentíssima Doutor(a)</option>
+                        <option value="Veterano">Excelentíssimo/Excelentíssima Veterano(a)</option>
+                        <option value="Dux">Excelentíssimo/Excelentíssima Dux</option>
+                    </select>
+                    <br>
+                    <label for="bonus-select">Bónus: </label>
+                    <select id="bonus-select" multiple></select>
+                    <br>
+                    <label for="times">Quantas vezes já aconteceu: </label>
+                    <input type="number" id="times" min="1" required>
+                    <br>
+                    <button type="submit">Adicionar Mamanço</button>
+                </div>
             </form>
-            <button id="delete-bonus-button">Apagar Todos os Bónus</button>
-            <button id="delete-mamanços-button">Apagar Todos os Mamanços</button>
-        </section>
-    </main>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
-
