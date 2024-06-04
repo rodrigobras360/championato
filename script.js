@@ -1,17 +1,37 @@
-function checkPassword() {
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', checkPassword);
+
+    const buttons = document.querySelectorAll('nav button');
+    buttons.forEach(button => {
+        button.addEventListener('click', () => showSection(button.id.replace('-button', '-section')));
+    });
+});
+
+function checkPassword(event) {
+    event.preventDefault();
     const password = document.getElementById('password').value;
-    const adminSection = document.getElementById('admin');
-    const userSection = document.getElementById('user');
-    const contentSection = document.getElementById('content');
-    if (password === 'champai') {
-        adminSection.classList.remove('hidden');
-        userSection.classList.add('hidden');
-        contentSection.classList.remove('hidden');
-    } else if (password === 'souchampi') {
-        userSection.classList.remove('hidden');
-        adminSection.classList.add('hidden');
-        contentSection.classList.remove('hidden');
-    } else {
-        alert('Senha incorreta!');
+    switch(password) {
+        case 'champai':
+            toggleVisibility('admin-section', true);
+            toggleVisibility('login-section', false);
+            break;
+        case 'souchampi':
+            toggleVisibility('user-section', true);
+            toggleVisibility('login-section', false);
+            break;
+        default:
+            alert('Senha incorreta!');
     }
 }
+
+function toggleVisibility(sectionId, show) {
+    const section = document.getElementById(sectionId);
+    section.style.display = show ? 'block' : 'none';
+}
+
+function showSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    section.classList.remove('hidden');
+}
+
