@@ -1,56 +1,80 @@
-document.getElementById('login-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const password = document.getElementById('password').value;
-    if (password === 'champai') {
-        document.getElementById('admin-button').style.display = 'block';
-    } else if (password === 'souchampi') {
-        document.getElementById('score-button').style.display = 'block';
-        document.getElementById('history-button').style.display = 'block';
-    }
-    document.getElementById('login-section').style.display = 'none';
-    document.getElementById('nav-section').style.display = 'block';
-});
+document.addEventListener('DOMContentLoaded', function () {
+    const loginForm = document.getElementById('login-form');
+    const passwordInput = document.getElementById('password');
+    const navigation = document.getElementById('navigation');
+    const scoreButton = document.getElementById('score-button');
+    const historyButton = document.getElementById('history-button');
+    const adminButton = document.getElementById('admin-button');
+    const scoreSection = document.getElementById('score-section');
+    const historySection = document.getElementById('history-section');
+    const adminSection = document.getElementById('admin-section');
+    const bonusForm = document.getElementById('bonus-form');
+    const mamadorForm1 = document.getElementById('mamador-form-1');
+    const mamadorForm2 = document.getElementById('mamador-form-2');
+    const deleteBonusButton = document.getElementById('delete-bonus-button');
+    const deleteMamançosButton = document.getElementById('delete-mamanços-button');
 
-document.getElementById('mamador1-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    document.getElementById('mamador1-form').style.display = 'none';
-    document.getElementById('mamador2-form').style.display = 'block';
-});
-
-document.getElementById('mamador2-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    alert('Mamadores adicionados com sucesso!');
-    document.getElementById('mamador2-form').reset();
-    document.getElementById('mamador1-form').reset();
-    document.getElementById('mamador2-form').style.display = 'none';
-    document.getElementById('mamador1-form').style.display = 'block';
-});
-
-function showSection(sectionId) {
-    const sections = document.querySelectorAll('.section');
-    sections.forEach(section => {
-        section.style.display = 'none';
+    loginForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const password = passwordInput.value;
+        if (password === 'champai') {
+            adminButton.style.display = 'inline';
+        } else if (password === 'souchampi') {
+            scoreButton.style.display = 'inline';
+            historyButton.style.display = 'inline';
+        }
+        loginForm.style.display = 'none';
+        navigation.style.display = 'block';
     });
-    document.getElementById(sectionId).style.display = 'block';
-}
 
-document.getElementById('bonus-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-    const bonusDescription = document.getElementById('bonus-description').value;
-    const bonusValue = document.getElementById('bonus-value').value;
-    const bonusItem = document.createElement('li');
-    bonusItem.textContent = `${bonusDescription}: ${bonusValue} pontos`;
-    document.getElementById('bonus-list').appendChild(bonusItem);
-    document.getElementById('bonus-form').reset();
+    scoreButton.addEventListener('click', function () {
+        showSection(scoreSection);
+    });
+
+    historyButton.addEventListener('click', function () {
+        showSection(historySection);
+    });
+
+    adminButton.addEventListener('click', function () {
+        showSection(adminSection);
+    });
+
+    mamadorForm1.addEventListener('submit', function (event) {
+        event.preventDefault();
+        mamadorForm1.style.display = 'none';
+        mamadorForm2.style.display = 'block';
+    });
+
+    mamadorForm2.addEventListener('submit', function (event) {
+        event.preventDefault();
+        alert('Mamanço adicionado com sucesso!');
+        mamadorForm1.reset();
+        mamadorForm2.reset();
+        mamadorForm1.style.display = 'block';
+        mamadorForm2.style.display = 'none';
+    });
+
+    bonusForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const description = document.getElementById('bonus-description').value;
+        const value = document.getElementById('bonus-value').value;
+        const bonusList = document.createElement('li');
+        bonusList.textContent = `${description}: ${value} pontos`;
+        document.getElementById('bonus-list').appendChild(bonusList);
+        bonusForm.reset();
+    });
+
+    deleteBonusButton.addEventListener('click', function () {
+        document.getElementById('bonus-list').innerHTML = '';
+    });
+
+    deleteMamançosButton.addEventListener('click', function () {
+        document.getElementById('mamanços-list').innerHTML = '';
+    });
+
+    function showSection(section) {
+        const sections = document.querySelectorAll('section');
+        sections.forEach(sec => sec.style.display = 'none');
+        section.style.display = 'block';
+    }
 });
-
-function clearBonuses() {
-    document.getElementById('bonus-list').innerHTML = '';
-}
-
-function clearMamancos() {
-    document.getElementById('mamanços-list').innerHTML = '';
-}
-
-document.getElementById('clear-bonuses').addEventListener('click', clearBonuses);
-document.getElementById('clear-mamancos').addEventListener('click', clearMamancos);
