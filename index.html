@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Championato</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <img id="header-image" src="https://cdn.glitch.global/46648d24-7591-466a-af03-3f767df8a509/brasao.png?v=1717442451877" alt="Brasão">
+        <h1>Bem-vindo, este é o Championato</h1>
+    </header>
+    
+    <div id="login-section" class="section">
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="password">Palavra-passe: </label>
+            <input type="password" id="password" required>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+
+    <nav id="nav-section" style="display: none;">
+        <button id="score-button" onclick="showSection('score-section')">Tabela de Pontuação</button>
+        <button id="history-button" onclick="showSection('history-section')">Histórico de Mamanços</button>
+        <button id="admin-button" onclick="showSection('admin-section')">Gallo-Praxis</button>
+    </nav>
+    
+    <div id="score-section" class="section" style="display: none;">
+        <h2>Tabela de Pontuação</h2>
+        <table id="score-table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Hierarquia</th>
+                    <th>Pontos Normais</th>
+                    <th>Bónus</th>
+                    <th>Pontos Totais</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Pontuações serão adicionadas aqui dinamicamente -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="history-section" class="section" style="display: none;">
+        <h2>Histórico de Mamanços</h2>
+        <ul id="mamanços-list"></ul>
+    </div>
+
+    <div id="admin-section" class="section" style="display: none;">
+        <h2>Gallo-Praxis</h2>
+        <form id="bonus-form">
+            <label for="bonus-description">Descrição do Bónus: </label>
+            <input type="text" id="bonus-description" required>
+            <label for="bonus-value">Valor do Bónus: </label>
+            <input type="number" id="bonus-value" required>
+            <button type="submit">Adicionar Bónus</button>
+        </form>
+        <ul id="bonus-list"></ul>
+        <button id="clear-bonuses" onclick="clearBonuses()">Apagar Todos os Bónus</button>
+
+        <form id="mamador1-form">
+            <label for="mamador1-name">Nome do 1º Mamador: </label>
+            <input type="text" id="mamador1-name" required>
+            <label for="mamador1-gender">Género do 1º Mamador: </label>
+            <select id="mamador1-gender" required>
+                <option value="homem">Homem à antiga</option>
+                <option value="mulher">Mulher à antiga</option>
+            </select>
+            <label for="mamador1-rank">Hierarquia do 1º Mamador: </label>
+            <select id="mamador1-rank" required>
+                <option value="caloiro">Caloiro</option>
+                <option value="pastrano">Excelentíssimo Pastrano</option>
+                <option value="doutor">Excelentíssimo Doutor</option>
+                <option value="veterano">Excelentíssimo Veterano</option>
+                <option value="dux">Excelentíssimo Dux</option>
+            </select>
+            <label for="mamador1-champi">É Champi?</label>
+            <input type="checkbox" id="mamador1-champi">
+            <button type="submit">Adicionar Mamador 1</button>
+        </form>
+        
+        <form id="mamador2-form" style="display: none;">
+            <label for="mamador2-name">Nome do 2º Mamador: </label>
+            <input type="text" id="mamador2-name" required>
+            <label for="mamador2-gender">Género do 2º Mamador: </label>
+            <select id="mamador2-gender" required>
+                <option value="homem">Homem à antiga</option>
+                <option value="mulher">Mulher à antiga</option>
+            </select>
+            <label for="mamador2-rank">Hierarquia do 2º Mamador: </label>
+            <select id="mamador2-rank" required>
+                <option value="caloiro">Caloiro</option>
+                <option value="pastrano">Excelentíssimo Pastrano</option>
+                <option value="doutor">Excelentíssimo Doutor</option>
+                <option value="veterano">Excelentíssimo Veterano</option>
+                <option value="dux">Excelentíssimo Dux</option>
+            </select>
+            <label for="mamador2-champi">É Champi?</label>
+            <input type="checkbox" id="mamador2-champi">
+            <button type="submit">Adicionar Mamador 2</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
