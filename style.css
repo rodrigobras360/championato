@@ -1,13 +1,14 @@
 /* Global Styles */
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f0f0f0;
+    background: linear-gradient(to right, #6a0dad, #8e2de2);
     color: #333;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: 100vh;
 }
 
 header {
@@ -17,43 +18,63 @@ header {
     text-align: center;
     padding: 20px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header img {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 50%;
 }
 
 header h1 {
     margin: 0;
-    font-size: 2.5em;
+    font-size: 3em;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
 nav {
     margin: 20px 0;
+    z-index: 1;
 }
 
 nav button {
-    background-color: #6a0dad;
+    background-color: #8e2de2;
     color: white;
     border: none;
     padding: 15px 30px;
     margin: 10px;
     cursor: pointer;
     font-size: 1.2em;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 50px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 nav button:hover {
-    background-color: #520c8c;
+    background-color: #6a0dad;
     transform: translateY(-2px);
 }
 
 .section {
     width: 80%;
     max-width: 1000px;
-    background-color: white;
+    background: white;
     margin: 20px 0;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+}
+
+.section:hover {
+    transform: translateY(-25px);
 }
 
 form {
@@ -64,6 +85,7 @@ form {
 
 form label {
     margin: 10px 0 5px;
+    font-weight: 500;
 }
 
 form input, form select, form button {
@@ -71,62 +93,5 @@ form input, form select, form button {
     padding: 10px;
     margin-bottom: 10px;
     font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-form button {
-    background-color: #6a0dad;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-form button:hover {
-    background-color: #520c8c;
-    transform: translateY(-2px);
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-table th, table td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    text-align: center;
-    background-color: #fff;
-    transition: background-color 0.3s ease;
-}
-
-table th {
-    background-color: #6a0dad;
-    color: white;
-}
-
-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-table tr:hover td {
-    background-color: #f1f1f1;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-ul li {
-    background-color: #6a0dad;
-    color: white;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+    border: 1
+      
